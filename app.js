@@ -1,5 +1,7 @@
-
+if(process.env.NODE_ENV!="production"){
 require('dotenv').config();
+}
+// console.log(process.env.SECRET)
 
 
 const express=require("express")
@@ -85,16 +87,15 @@ app.use("/listing",listing);
 app.use("/listing/:id/reviews",review);
 app.use("/",user)
 
-
+app.all("*",(req,res,next)=>{
+    next(new expressError(404,"Page Not Found"));
+})
 app.use((err,req,res,next)=>{
     let {status=500,message="Something went wrong"}=err;
     // res.status(status).send(message);
     res.status(status).render("listing/error.ejs",{message});
 })
 
-app.all("*",(req,res,next)=>{
-    next(new expressError(404,"Page Not Found"));
-})
 app.listen(8080,()=>{
     console.log(`server is listening on port 8080`);
 });

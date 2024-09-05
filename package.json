@@ -33,6 +33,7 @@
     "passport": "^0.7.0",
     "passport-local": "^1.0.0",
     "passport-local-mongoose": "^8.0.0",
-    "schema": "^0.2.1"
+    "schema": "^0.2.1",
+    "util": "^0.12.5"
   }
 }
