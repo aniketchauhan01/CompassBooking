@@ -74,6 +74,9 @@ passport.use(new LocalStrategy(User.authenticate()))
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
+app.get("/",(req,res)=>{
+    res.redirect("/listing")
+})
 
 app.use((req,res,next)=>{
     res.locals.success=req.flash("success");
@@ -91,6 +94,10 @@ app.use((err,req,res,next)=>{
     let {status=500,message="Something went wrong"}=err;
     // res.status(status).send(message);
     res.status(status).render("listing/error.ejs",{message});
+})
+
+app.all("*",(req,res,next)=>{
+    next(new expressError(404,"Page Not Found"));
 })
 
 app.listen(8080,()=>{
