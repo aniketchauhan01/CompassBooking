@@ -93,10 +93,7 @@ app.use((err,req,res,next)=>{
     res.status(status).render("listing/error.ejs",{message});
 })
 
-app.all("*",(req,res,next)=>{
-    next(new expressError(404,"Page Not Found"));
-})
-
+  
 app.listen(8080,()=>{
     console.log("server listen on port")
 })
