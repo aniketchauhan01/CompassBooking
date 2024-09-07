@@ -1,7 +1,7 @@
 const User = require("../models/user");
 
 module.exports.renderSignupForm=(req,res)=>{
-    res.render("users/signup.ejs")
+    res.render("Users/signup.ejs")
     }
 
 module.exports.signup=async(req,res)=>{
@@ -21,7 +21,7 @@ module.exports.signup=async(req,res)=>{
     }
 }
 module.exports.renderLoginForm=(req,res)=>{
-    res.render("users/login.ejs")
+    res.render("Users/login.ejs")
 }
 module.exports.login= async(req,res)=>{
     req.flash("success","Welcome to Winderklust! , you are login")
