@@ -19,14 +19,14 @@ const User=require("./models/user.js");
 
 const listing=require("./routes/listing.js");
 const review=require("./routes/review.js");
-const user=require("./routes/user.js")
+const userRoute=require("./routes/user.js")
 
 app.set("view engine","ejs");
 app.set("views",path.join(__dirname,"views"));
 app.use(express.urlencoded({extended:true}))
 app.use(methodOverride("_method"))
 app.engine("ejs",ejsMate)
-app.use(express.static(path.join(__dirname,"/public")))
+app.use(express.static(path.join(__dirname,"public")))
 
 const dbUrl=process.env.ATLASDB_URL;
 main().then(()=>{
@@ -42,7 +42,7 @@ const store=MongoStore.create({
     mongoUrl:dbUrl,
     crypto:{
         secret:process.env.SECRET,
-    },
+},
 touchAfter:24*3600,
 })
 store.on("error",()=>{
@@ -84,8 +84,12 @@ app.use((req,res,next)=>{
 
 app.use("/listing",listing);
 app.use("/listing/:id/reviews",review);
-app.use("/",user)
+app.use("/",userRoute)
 
+
+app.get("/",(req,res)=>{
+    res.redirect("/listing")
+})
 
 app.use((err,req,res,next)=>{
     let {status=500,message="Something went wrong"}=err;
@@ -93,7 +97,10 @@ app.use((err,req,res,next)=>{
     res.status(status).render("listing/error.ejs",{message});
 })
 
-  
-app.listen(8080,()=>{
+app.all("*",(req,res,next)=>{
+    next(new expressError(404,"Page Not Found"));
+})
+
+app.listen(8081,()=>{
     console.log("server listen on port")
 })
