@@ -76,3 +76,30 @@ module.exports.deleteListing= async(req,res)=>{
     req.flash("success","Listing is Deleted")
     res.redirect("/listing")
 }
+
+module.exports.filter=async(req,res)=>{
+    const filterOption=req.query.option;
+    let filteredlisting=await Listing.find({categories:filterOption});
+    res.render("listing/filter.ejs",{filteredlisting});
+}
+
+module.exports.search=async(req,res)=>{
+
+    let searchItem=req.query.input?req.query.input.toString():'';
+    searchItem = searchItem.replace(/\$/g, '');
+    let searchlisting=[];
+    if(searchItem){
+    searchlisting=await Listing.find({
+        $or:[
+        {name:{$regex:searchItem,$options:'i'}},
+        {country:{$regex:searchItem,$options:'i'}},
+        {location:{$regex:searchItem,$options:'i'}},
+        {categories:{$regex:searchItem ,$options:'i'}}
+    ]});
+    }else{
+    searchlisting=await Listing.find();
+    res.render("listing/listing.ejs",{allListing:searchlisting});
+
+    }
+    res.render("listing/filter.ejs",{filteredlisting:searchlisting});
+}
