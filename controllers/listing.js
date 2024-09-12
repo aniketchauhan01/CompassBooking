@@ -29,12 +29,13 @@ module.exports.ShowListing=async(req,res)=>{
 module.exports.createListing=async(req,res,next)=>{
     let url=req.file.path;
     let filename=req.file.filename;
-    console.log(url,filename)
+    let categories=req.body.categories;
+    console.log(url,filename,categories)
     let listing=req.body.listing;
-    
     const newListing= new Listing(listing);
     newListing.owner=req.user._id;
-    newListing.image={url,filename}
+    newListing.image={url,filename};
+    newListing.categories=categories;
     await newListing.save();
     req.flash("success","new listing created");
     res.redirect("/listing")

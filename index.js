@@ -101,6 +101,6 @@ app.all("*",(req,res,next)=>{
     next(new expressError(404,"Page Not Found"));
 })
 
-app.listen(8081,()=>{
+app.listen(8080,()=>{
     console.log("server listen on port")
 })

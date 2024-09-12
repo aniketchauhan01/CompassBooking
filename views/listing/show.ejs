@@ -12,9 +12,9 @@
         <div class="card-body">
             <p class="card-text"> Owned by: <i><%= listing.owner.username %></i> </p>       
             <p class="card-text">  <%= listing.description  %> </p>
-            <p class="card-text"> &#8377; <%= listing.price.toLocaleString("en-IN") %></p>
-            <p class="card-text"> <%= listing.location  %> </p>
-            <p class="card-text"><%= listing.country  %> </p>
+            <p class="card-text">  <%= listing.categories %> </p>
+            <p class="card-text"> &#8377; <%= listing.price.toLocaleString("en-IN") %>/night</p>
+            <p class="card-text"><i class="fa-solid fa-location-dot"></i> <%= listing.location  %> ,<%= listing.country  %></p>
         </div>
 </div>
 <br>
@@ -29,7 +29,7 @@
 </div>
 <% } %>
 <div class="col-6 offset-3 " >
-    <% if(currUser){ %>
+
         <br><hr>
     <h4>Leave a review</h4>
     <form action="/listing/<%= listing._id %>/reviews" method="POST" novalidate class="needs-validation">
@@ -55,9 +55,14 @@
             <textarea name="review[comment]" id="comment" class="form-control" required></textarea>
             <div class="invalid-feedback">Please submit some comments for review</div>
         </div><br>
+        <% if(!currUser){ %>
+
+        <a href="listing/login"></a><button class="btn btn-outline-dark"> Submit</button>
+        <% }else{ %>
         <button class="btn btn-outline-dark"> Submit</button>
+
+            <% } %>
     </form>
-    <% } %>
 <br> <hr>
 <% if(listing.reviews.length>0){ %>
 <div class="row">

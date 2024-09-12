@@ -11,13 +11,13 @@ main()
 });
 
 async function main(){
-    await mongoose.connect('mongodb://127.0.0.1:27017/wonderlust')
+    await mongoose.connect("mongodb+srv://aniketchauhan89230:LSWmcRhoxpiF82js@cluster0.5tpdw.mongodb.net/test")
 }
 
 const initDB=async()=>{
     // await Listing.deleteMany({});
     initData.data=initData.data.map((obj)=>({
-        ...obj,owner:"66d59f7954525bc9c71d8e97"
+        ...obj,owner:"66e07a4821ba42ceb84ccf63"
     }))
     await Listing.insertMany(initData.data);
     console.log("data is initalized");
