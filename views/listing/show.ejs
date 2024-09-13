@@ -1,8 +1,8 @@
 <% layout("/layouts/boilerplate") %>
 
-<div class="row mt-3">
-    <div class="col-10 offset-3">
-    <h3  style="color:rgb(0, 0, 0);"><%= listing.title %></h3><br>
+<div class="row mt-3 showejs">
+    <div class="col-10 offset-3" id="heading">
+    <h3   style="color:rgb(0, 0, 0);"><%= listing.title %></h3><br>
     </div>
     <div class="card col-6 offset-3 show-card listing-card">
         <img  
@@ -28,10 +28,10 @@
     </form>
 </div>
 <% } %>
-<div class="col-6 offset-3 " >
+<div class="col-6 offset-3 review" >
 
         <br><hr>
-    <h4>Leave a review</h4>
+    <h4 id="headingReview">Leave a review</h4>
     <form action="/listing/<%= listing._id %>/reviews" method="POST" novalidate class="needs-validation">
 <div  class="mb-3 mt-3">
     <label for="rating" class="form-label">Rating</label>
@@ -59,16 +59,16 @@
 
         <a href="listing/login"></a><button class="btn btn-outline-dark"> Submit</button>
         <% }else{ %>
-        <button class="btn btn-outline-dark"> Submit</button>
+        <button class="btn btn-outline-dark btns"> Submit</button>
 
             <% } %>
     </form>
 <br> <hr>
 <% if(listing.reviews.length>0){ %>
 <div class="row">
-        <h4>All Reviews</h4>
+        <h4 id="headingReview">All Reviews</h4><br>
     <% for(let review of listing.reviews){ %>
-        <div class="card col-8 mb-3 ms-3" >
+        <div class="card col-8 mb-3 ms-3 allreview" >
             <div class="card-body mt-2">
                 <h5 class="card-title">@<%= review.author.username %></h5>
                 <p class="starability-result card-text" data-rating="<%= review.rating %>"></p>
@@ -80,12 +80,12 @@
         </div>
         <% } %>
 </div>
-<% } %>
+<% } %> <br>
 
-<div class="col-6 offset-3 mb-3" >
+<!-- <div class="col-6 offset-3 mb-3" >
     <h3>Where you</h3>
     <div id="map"></div>
-</div>
+</div> -->
 
 </div>
 </div>
